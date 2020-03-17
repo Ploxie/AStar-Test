@@ -32,6 +32,11 @@ public class Grid implements MouseListener{
 			for(Node node : astar.getClosedSet()) {
 				g.fillRect(node.getColumn() * cellSize , node.getRow() * cellSize, cellSize, cellSize);
 			}
+			
+			g.setColor(Color.DARK_GRAY);
+			for(Node node : astar.getBlockedNodes()) {
+				g.fillRect(node.getColumn() * cellSize , node.getRow() * cellSize, cellSize, cellSize);
+			}
 		}
 		
 		g.setColor(Color.CYAN);

@@ -21,6 +21,7 @@ public class AStar {
     private Set<Node> closedSet;
     private Node initialNode;
     private Node finalNode;
+    private List<Node> blockedNodes = new ArrayList<Node>();
 
     public AStar(int rows, int cols, Node initialNode, Node finalNode, int hvCost, int diagonalCost) {
         this.hvCost = hvCost;
@@ -92,6 +93,10 @@ public class AStar {
         while (!isEmpty(openList)) {
             Node currentNode = openList.poll();
             closedSet.add(currentNode);
+            
+            if(blockedNodes.contains(currentNode)) {
+            	continue;
+            }
             if (isFinalNode(currentNode)) {
                 return getPath(currentNode);
             } else {
@@ -189,6 +194,8 @@ public class AStar {
     private void setBlock(int row, int col) {
     	 this.searchArea[row][col].setBlocked(true);
     	 this.closedSet.add(this.searchArea[row][col]);
+    	 
+    	 this.blockedNodes.add(this.searchArea[row][col]);
     }
 
     public Node getInitialNode() {
@@ -227,6 +234,10 @@ public class AStar {
         return closedSet;
     }
 
+    public List<Node> getBlockedNodes(){
+    	return blockedNodes;
+    }
+    
     public void setClosedSet(Set<Node> closedSet) {
         this.closedSet = closedSet;
     }
